@@ -1,0 +1,12 @@
+= docker-luaformatter
+
+docker hub: https://hub.docker.com/r/birdy/docker-luaformatter/
+
+== Usage
+Just mount your directory to /tmp and run luaformatter commands on it:
+
+ docker run -v $PWD:/tmp birdy/docker-luaformatter
+ 
+To format a file inline (format and alter file):
+
+ docker run -v $PWD:/tmp birdy/docker-luaformatter -a sample.lua
