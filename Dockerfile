@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:22.04 AS builder
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -19,9 +19,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     cmake && \
     apt-get clean
 
-RUN luarocks install --server=https://luarocks.org/dev lua-format
+RUN luarocks install --server=https://luarocks.org/dev luaformatter
+
+FROM ubuntu:22.04
+
+COPY --from=builder /usr/local/bin/lua-format /usr/local/bin/lua-format
 
 WORKDIR /code
-
 ENTRYPOINT [ "lua-format" ]
 
